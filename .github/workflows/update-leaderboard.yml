@@ -1,0 +1,44 @@
+name: Update Discord Leaderboard
+
+# Run every 3 hours + allow manual trigger
+on:
+  schedule:
+    - cron: '0 */3 * * *'   # 00:00, 03:00, 06:00, ...
+  workflow_dispatch:
+
+jobs:
+  run-leaderboard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run leaderboard script
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
+        run: |
+          python NewCombined.py
+
+      - name: Upload logs as artifact (optional)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: leaderboard-logs
+          path: |
+            *.log
+            !.git
