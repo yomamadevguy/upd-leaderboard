@@ -38,7 +38,6 @@ INVITE_CODES = [
     "syCCeXJ6ja",
     "uVetkeSaR3",
     "aV8w98WCEU",
-    "HgDZ7yRj4m",
     "TXx7tDnVM8",
     "rP5tF4XpyH",
     "e6cdeW6fGY",
