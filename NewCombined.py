@@ -178,7 +178,7 @@ def send_leaderboard_to_discord(leaderboard_data):
         "Content-Type": "application/json"
     }
     
-    medals = {1: "1st_place:", 2: "2nd_place:", 3: "3rd_place:"}
+    medals = {1: ":first_place:", 2: ":second_place:", 3: ":third_place:"}
     
     fields = []
     for i, entry in enumerate(leaderboard_data, 1):
@@ -194,7 +194,7 @@ def send_leaderboard_to_discord(leaderboard_data):
         })
     
     embed = {
-        "title": "Server Leaderboard",
+        "title": "🏆 Server Leaderboard 🏆",
         "description": "Top Spawnism servers by member count.",
         "color": 0x00FFFF,
         "timestamp": datetime.datetime.utcnow().isoformat(),
